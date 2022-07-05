@@ -1,19 +1,21 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useQuery } from "react-query";
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 
 export interface Repository {
   full_name: string;
+  name: string;
   description: string;
 }
 
 export const Repos: React.FC = () => {
+  const { user } = useParams();
   const { data: repositories, isFetching } = useQuery<Repository[]>(
     "repos",
     async () => {
       const reponse = await axios.get(
-        "https://api.github.com/users/isneru/repos"
+        `https://api.github.com/users/${user}/repos`
       );
       return reponse.data;
     },
@@ -28,7 +30,7 @@ export const Repos: React.FC = () => {
       {repositories?.map((repo) => {
         return (
           <li key={repo.full_name}>
-            <Link to={`repos/${repo.full_name}`}>{repo.full_name}</Link>
+            <Link to={`${repo.name}`}>{repo.full_name}</Link>
             <span>{repo.description}</span>
           </li>
         );

@@ -4,8 +4,7 @@ import { useParams } from "react-router-dom";
 import { Repository } from "../Repos";
 
 export const Repo: React.FC = () => {
-  const params = useParams();
-  const currentRepository = params["*"] as string;
+  const { repo } = useParams();
 
   const queryClient = useQueryClient();
 
@@ -13,9 +12,9 @@ export const Repo: React.FC = () => {
     const previousRepos = queryClient.getQueryData<Repository[]>("repos");
 
     if (previousRepos) {
-      const nextRepos = previousRepos.map((repo) => {
-        if (repo.full_name === currentRepository) {
-          return { ...repo, description: "Testing" };
+      const nextRepos = previousRepos.map((repository) => {
+        if (repository.full_name === repo) {
+          return { ...repository, description: "Testing" };
         } else {
           return repo;
         }
@@ -26,7 +25,7 @@ export const Repo: React.FC = () => {
 
   return (
     <>
-      <h1>{currentRepository}</h1>
+      <h1>{repo}</h1>
       <button onClick={handleRepoChange}>Handle repo change</button>
     </>
   );

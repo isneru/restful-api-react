@@ -1,12 +1,13 @@
 import React from "react";
 import { Route, Routes } from "react-router-dom";
-import { Repo, Repos } from "./pages";
+import { Form, Repo, Repos } from "./pages";
 
 export const App: React.FC = () => {
   return (
     <Routes>
-      <Route path="/" element={<Repos />} />
-      <Route path="/repos/*" element={<Repo />} />
+      <Route path="/" element={<Form />} />
+      <Route path="/:user/repos" element={<Repos />} />
+      <Route path="/:user/repos/:repo" element={<Repo />} />
     </Routes>
   );
 };
