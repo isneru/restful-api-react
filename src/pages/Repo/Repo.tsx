@@ -13,10 +13,10 @@ export const Repo: React.FC = () => {
 
     if (previousRepos) {
       const nextRepos = previousRepos.map((repository) => {
-        if (repository.full_name === repo) {
+        if (repository.name === repo) {
           return { ...repository, description: "Testing" };
         } else {
-          return repo;
+          return repository;
         }
       });
       queryClient.setQueryData("repos", nextRepos);
